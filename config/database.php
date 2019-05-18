@@ -47,7 +47,7 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => $url["hosts"],
+            'host' => $url["host"],
             'port' => $url["port"],
             'database' => substr($url["path"], 1),
             'username' => $url["user"],
