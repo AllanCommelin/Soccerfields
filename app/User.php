@@ -20,6 +20,14 @@ class User extends Authenticatable
     ];
 
     /**
+     * Get the profile associated with the user.
+     */
+    public function profile()
+    {
+        return $this->hasOne('App\Profile');
+    }
+
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array

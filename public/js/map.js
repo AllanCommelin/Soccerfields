@@ -39,5 +39,4 @@ function initMap() {
         console.log('Circle: '+bounds);
     });
 
-
 }
