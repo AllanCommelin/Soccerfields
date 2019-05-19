@@ -48,7 +48,7 @@ function initMap() {
                         west: boundWest
                     },
                     success: function (data) {
-                        alert(data.success);
+                        alert('Le champs a bien été ajouté');
                     }
                 });
             }
@@ -72,8 +72,7 @@ function initMap() {
                     id: idField
                 },
                 success: function (data) {
-                    alert(data);
-                    console.log(data);
+                    alert('Le champs à bien été supprimé');
                 }
             });
         }
@@ -84,7 +83,6 @@ function initMap() {
      * on récupère ces attribus
      * puis on dessiner le terrain sur la carte
      */
-
     $('.field').each(function(index) {
         if (this.dataset.type == 'rectangle'){
             let rectangle = new google.maps.Rectangle({

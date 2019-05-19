@@ -5,18 +5,18 @@
 
 @section('content')
     <div id="map"></div>
-    <div class="fields">
+    <div class="list-group fields">
         <ul>
             @foreach ($fields as $field)
-                <li class="field" 
+                <li class="list-group-item field" 
                     data-type="rectangle" 
                     data-name="{{ $field->name }}" 
                     data-north="{{ $field->north }}" 
                     data-east="{{ $field->east }}" 
                     data-south="{{ $field->south }}" 
                     data-west="{{ $field->west }}">
-                    {{ $field->name }} 
-                    <button class="deleteField" data-id="{{ $loop->index }}">Supprimer le terrain</button>
+                    <p>{{ $field->name }}</p> 
+                    <button type="button" class="btn btn-outline-danger deleteField" data-id="{{ $loop->index }}"><i class="fas fa-trash-alt"></i></button>
                 </li>
             @endforeach
         </ul>
