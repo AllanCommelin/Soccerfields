@@ -5,12 +5,20 @@ function initMap() {
     });
 
     var drawingManager = new google.maps.drawing.DrawingManager({
-        drawingMode: google.maps.drawing.OverlayType.MARKER,
+        //drawingMode: google.maps.drawing.OverlayType.RECTANGLE,
         drawingControl: true,
         drawingControlOptions: {
-            position: google.maps.ControlPosition.TOP_CENTER,
+            position: google.maps.ControlPosition.BOTTOM_CENTER,
             drawingModes: ['rectangle']
         },
+        rectangleOptions: {
+            fillColor: '#0011aa',
+            fillOpacity: 1,
+            strokeWeight: 5,
+            clickable: true,
+            editable: true,
+            zIndex: 1
+        }
     });
     // Initialise la map
     drawingManager.setMap(map);
@@ -91,6 +99,9 @@ function initMap() {
                 strokeWeight: 2,
                 fillColor: '#75d135',
                 fillOpacity: 0.35,
+                clickable: true,
+                editable: true,
+                zIndex: 10,
                 map: map,
                 bounds: {
                     north: parseFloat(this.dataset.north),
@@ -99,6 +110,19 @@ function initMap() {
                     west: parseFloat(this.dataset.west)
                 }
             });
+            rectangle.setMap(map);
+            infoWindow = new google.maps.InfoWindow();
+            createClickablePoly(rectangle, this.dataset.name, map);
         }
+    });
+}
+
+function createClickablePoly(poly, html, map) {
+    var contentString = html;
+    var infoWindow = new google.maps.InfoWindow();
+    google.maps.event.addListener(poly, 'click', function (event) {
+        infoWindow.setContent(contentString);
+        infoWindow.setPosition(event.latLng);
+        infoWindow.open(map);
     });
 }
