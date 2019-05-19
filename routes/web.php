@@ -17,8 +17,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/map', function () {
-    return view('map');
-});
+Route::get('/map/fields', 'MapController@getFields');
+
+Route::get('/map', 'MapController@index')->name('map');
 
 Route::get('/home', 'HomeController@index')->name('home');

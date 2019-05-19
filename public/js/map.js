@@ -35,8 +35,36 @@ function initMap() {
 
     // Permets de récupérer la latitude et la longitude d'un cercle lorsqu'il est est créé
     google.maps.event.addListener(drawingManager, 'circlecomplete', function (circle) {
-        var bounds = circle.getBounds();
-        console.log('Circle: '+bounds);
+        let centerLat = circle.getCenter().lat();
+        let centerLng = circle.getCenter().lng();
+        let radius = circle.getRadius();
+        console.log('Circle center lat: ' + centerLat);
+        console.log('Circle center lng: ' + centerLng);
+        console.log('Circle radius: ' + radius);
     });
 
+    /**
+     * Parcours la liste des terrains, pour chaque terrain: 
+     * on récupère ces attribus
+     * puis on dessiner le terrain sur la carte
+     */
+
+    $('.field').each(function(index) {
+        if(this.dataset.type == 'circle'){
+            let centerCircle = new google.maps.LatLng(
+                parseFloat(this.dataset.lat), 
+                parseFloat(this.dataset.lng)
+            );
+            let fieldCircle = new google.maps.Circle({
+                strokeColor: '#FF0000',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: '#FF0000',
+                fillOpacity: 0.35,
+                map: map,
+                center: centerCircle,
+                radius: parseFloat(this.dataset.radius)
+            });
+        }
+    })
 }
