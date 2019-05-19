@@ -43,8 +43,9 @@ class MapController extends Controller
         $profile = Auth::user()->profile;
         $fields = json_decode($profile->fields, true);
         unset($fields[$request->id]);
+        $newFields = array_values($fields);
 
-        Profile::where('id', $profile->id)->update(['fields' => json_encode($fields)]);
+        Profile::where('id', $profile->id)->update(['fields' => json_encode($newFields)]);
         return $fields;
     }
 }
