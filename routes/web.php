@@ -19,6 +19,9 @@ Auth::routes();
 
 Route::get('/map/fields', 'MapController@getFields');
 
+Route::post('/map/addField', 'MapController@createNewField');
+Route::post('/map/deleteField', 'MapController@deleteField');
+
 Route::get('/map', 'MapController@index')->name('map');
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -73,7 +73,7 @@ class RegisterController extends Controller
         // Creates the user profile
         $profile = Profile::create([
             'status' => 'organiser',
-            'fields' => '{}',
+            'fields' => json_encode(array()),
             'user_id' => $user->id,
         ]); 
 

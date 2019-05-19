@@ -9,38 +9,74 @@ function initMap() {
         drawingControl: true,
         drawingControlOptions: {
             position: google.maps.ControlPosition.TOP_CENTER,
-            drawingModes: ['marker', 'circle', 'polygon', 'polyline', 'rectangle']
+            drawingModes: ['rectangle']
         },
-        markerOptions: { icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png' },
-        circleOptions: {
-            fillColor: '#ffff00',
-            fillOpacity: 1,
-            strokeWeight: 5,
-            clickable: false,
-            editable: true,
-            zIndex: 1
-        },
-        polygonOptions: {
-            editable: true,
-            draggable: true,
-            strokeColor: '#75d135',
-            fillColor: '#75d135',
-            strokeWeight: 5,
-            strokeOpacity: 1,
-            zIndex: 2
-        }
     });
     // Initialise la map
     drawingManager.setMap(map);
 
-    // Permets de récupérer la latitude et la longitude d'un cercle lorsqu'il est est créé
-    google.maps.event.addListener(drawingManager, 'circlecomplete', function (circle) {
-        let centerLat = circle.getCenter().lat();
-        let centerLng = circle.getCenter().lng();
-        let radius = circle.getRadius();
-        console.log('Circle center lat: ' + centerLat);
-        console.log('Circle center lng: ' + centerLng);
-        console.log('Circle radius: ' + radius);
+    /**
+     * Permets de : 
+     * récupérer les attributs d'un rectangle lors de sa création
+     * donnée un nom à cette forme
+     * l'enregistrer en base de donnée
+     */
+    google.maps.event.addListener(drawingManager, 'overlaycomplete', function (event) {
+        if(event.type == 'rectangle'){
+            let bounds = event.overlay.getBounds();
+            let boundNorth = bounds.getNorthEast().lat();
+            let boundEast = bounds.getNorthEast().lng();
+            let boundSouth = bounds.getSouthWest().lat();
+            let boundWest = bounds.getSouthWest().lng();
+
+            let fieldName = prompt("Veuillez entrer le nom du terrain");
+            if (fieldName != null) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: 'POST',
+                    url: '/map/addField',
+                    data: { 
+                        type: event.type, 
+                        name: fieldName, 
+                        north: boundNorth, 
+                        east: boundEast, 
+                        south: boundSouth, 
+                        west: boundWest
+                    },
+                    success: function (data) {
+                        alert(data.success);
+                    }
+                });
+            }
+        }
+    });
+
+    $('.deleteField').click(function(){
+        let idField = this.dataset.id
+        confirm = window.confirm("Êtes-vous sûr de vouloir supprimer ce terrain ?");
+
+        if(confirm === true){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'POST',
+                url: '/map/deleteField',
+                data: {
+                    id: idField
+                },
+                success: function (data) {
+                    alert(data);
+                    console.log(data);
+                }
+            });
+        }
     });
 
     /**
@@ -50,21 +86,21 @@ function initMap() {
      */
 
     $('.field').each(function(index) {
-        if(this.dataset.type == 'circle'){
-            let centerCircle = new google.maps.LatLng(
-                parseFloat(this.dataset.lat), 
-                parseFloat(this.dataset.lng)
-            );
-            let fieldCircle = new google.maps.Circle({
+        if (this.dataset.type == 'rectangle'){
+            let rectangle = new google.maps.Rectangle({
                 strokeColor: '#FF0000',
                 strokeOpacity: 0.8,
                 strokeWeight: 2,
-                fillColor: '#FF0000',
+                fillColor: '#75d135',
                 fillOpacity: 0.35,
                 map: map,
-                center: centerCircle,
-                radius: parseFloat(this.dataset.radius)
+                bounds: {
+                    north: parseFloat(this.dataset.north),
+                    south: parseFloat(this.dataset.south),
+                    east: parseFloat(this.dataset.east),
+                    west: parseFloat(this.dataset.west)
+                }
             });
         }
-    })
+    });
 }

@@ -7,27 +7,18 @@
     <div id="map"></div>
     <div class="fields">
         <ul>
-            <li class="field" 
-                data-type="circle" 
-                data-lat="48.92450138240447" 
-                data-lng="2.3600200391895214" 
-                data-radius="163.41125240201023">
-                Terrain1
-            </li>
-            <li class="field" 
-                data-type="circle" 
-                data-lat="48.92307988524846"
-                data-lng="2.362227832812323" 
-                data-radius="32.957856872798736">
-                Terrain2
-            </li>
-            <li class="field" 
-                data-type="circle" 
-                data-lat="48.92249857829099" 
-                data-lng="2.357053286744531" 
-                data-radius="98.9248235660144">
-                Terrain3
-            </li>
+            @foreach ($fields as $field)
+                <li class="field" 
+                    data-type="rectangle" 
+                    data-name="{{ $field->name }}" 
+                    data-north="{{ $field->north }}" 
+                    data-east="{{ $field->east }}" 
+                    data-south="{{ $field->south }}" 
+                    data-west="{{ $field->west }}">
+                    {{ $field->name }} 
+                    <button class="deleteField" data-id="{{ $loop->index }}">Supprimer le terrain</button>
+                </li>
+            @endforeach
         </ul>
     </div>
 @endsection
