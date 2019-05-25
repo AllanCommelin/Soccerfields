@@ -16,12 +16,13 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::group( ['middleware' => 'auth' ], function() {
+    Route::get('/map/fields', 'MapController@getFields');
 
-Route::get('/map/fields', 'MapController@getFields');
+    Route::post('/map/addField', 'MapController@createNewField');
+    Route::post('/map/deleteField', 'MapController@deleteField');
 
-Route::post('/map/addField', 'MapController@createNewField');
-Route::post('/map/deleteField', 'MapController@deleteField');
+    Route::get('/map', 'MapController@index')->name('map');
 
-Route::get('/map', 'MapController@index')->name('map');
-
-Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/home', 'HomeController@index')->name('home');
+});
