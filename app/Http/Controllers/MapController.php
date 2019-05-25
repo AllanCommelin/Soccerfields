@@ -29,10 +29,16 @@ class MapController extends Controller
                 'south' => $request->south,
                 'west' => $request->west,
             );
+        } elseif ($request ->type == "polygon"){
+            $newField = array(
+              'type' => $request->type,
+              'name' => $request->name,
+              'path' => json_decode($request->path, true),
+            );
         }
 
         $profile = Auth::user()->profile;
-        $fields = json_decode($profile->fields);
+        $fields = json_decode($profile->fields, true);
         array_push($fields, $newField);
 
         Profile::where('id', $profile->id)->update(['fields' => json_encode($fields)]);
@@ -46,6 +52,7 @@ class MapController extends Controller
         $newFields = array_values($fields);
 
         Profile::where('id', $profile->id)->update(['fields' => json_encode($newFields)]);
-        return $fields;
+        return $request;
     }
+
 }

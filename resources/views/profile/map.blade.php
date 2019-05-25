@@ -8,16 +8,26 @@
     <div class="list-group fields">
         <ul>
             @foreach ($fields as $field)
-                <li class="list-group-item field" 
-                    data-type="rectangle" 
-                    data-name="{{ $field->name }}" 
-                    data-north="{{ $field->north }}" 
-                    data-east="{{ $field->east }}" 
-                    data-south="{{ $field->south }}" 
-                    data-west="{{ $field->west }}">
-                    <p>{{ $field->name }}</p> 
-                    <button type="button" class="btn btn-outline-danger deleteField" data-id="{{ $loop->index }}"><i class="fas fa-trash-alt"></i></button>
-                </li>
+                @if($field->type == "rectangle")
+                    <li class="list-group-item field"
+                        data-type="{{ $field->type }}"
+                        data-name="{{ $field->name }}"
+                        data-north="{{ $field->north }}"
+                        data-east="{{ $field->east }}"
+                        data-south="{{ $field->south }}"
+                        data-west="{{ $field->west }}">
+                        <p>{{ $field->name }}</p>
+                        <button type="button" class="btn btn-outline-danger deleteField" data-id="{{ $loop->index }}"><i class="fas fa-trash-alt"></i></button>
+                    </li>
+                @elseif($field->type == "polygon")
+                    <li class="list-group-item field"
+                        data-type="{{ $field->type }}"
+                        data-name="{{ $field->name }}"
+                        data-path="{{ json_encode($field->path) }}">
+                        <p>{{ $field->name }}</p>
+                        <button type="button" class="btn btn-outline-danger deleteField" data-id="{{ $loop->index }}"><i class="fas fa-trash-alt"></i></button>
+                    </li>
+                @endif
             @endforeach
         </ul>
     </div>

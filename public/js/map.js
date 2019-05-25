@@ -5,19 +5,24 @@ function initMap() {
     });
 
     var drawingManager = new google.maps.drawing.DrawingManager({
-        //drawingMode: google.maps.drawing.OverlayType.RECTANGLE,
+        //drawingMode: google.maps.drawing.OverlayType.POLYGON,
         drawingControl: true,
         drawingControlOptions: {
             position: google.maps.ControlPosition.BOTTOM_CENTER,
-            drawingModes: ['rectangle']
+            drawingModes: ['rectangle', 'polygon']
         },
         rectangleOptions: {
-            fillColor: '#0011aa',
+            fillColor: '#0daa28',
             fillOpacity: 1,
             strokeWeight: 5,
-            clickable: true,
-            editable: true,
             zIndex: 1
+        },
+        polygonOptions: {
+            fillColor: '#0daa49',
+            fillOpacity: 1,
+            strokeColor: '#055300',
+            strokeWeight: 5,
+            zIndex: 2
         }
     });
     // Initialise la map
@@ -56,7 +61,30 @@ function initMap() {
                         west: boundWest
                     },
                     success: function (data) {
-                        alert('Le champs a bien été ajouté');
+                        alert('Le terrain a bien été ajouté');
+                    }
+                });
+            }
+        } else if(event.type === 'polygon'){
+            let pathArray = JSON.stringify(event.overlay.getPath().getArray());
+            let fieldName = prompt("Veuillez entrer le nom du terrain");
+            if (fieldName != null) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: 'POST',
+                    url: '/map/addField',
+                    data: {
+                        type: event.type,
+                        name: fieldName,
+                        path: pathArray,
+                    },
+                    success: function (data) {
+                        alert('Le terrain a bien été ajouté');
+                        window.location.reload();
                     }
                 });
             }
@@ -80,7 +108,8 @@ function initMap() {
                     id: idField
                 },
                 success: function (data) {
-                    alert('Le champs à bien été supprimé');
+                    alert('Le terrain a bien été supprimé');
+                    window.location.reload();
                 }
             });
         }
@@ -92,15 +121,13 @@ function initMap() {
      * puis on dessiner le terrain sur la carte
      */
     $('.field').each(function(index) {
-        if (this.dataset.type == 'rectangle'){
+        if (this.dataset.type === 'rectangle'){
             let rectangle = new google.maps.Rectangle({
                 strokeColor: '#FF0000',
                 strokeOpacity: 0.8,
                 strokeWeight: 2,
                 fillColor: '#75d135',
                 fillOpacity: 0.35,
-                clickable: true,
-                editable: true,
                 zIndex: 10,
                 map: map,
                 bounds: {
@@ -114,12 +141,26 @@ function initMap() {
             infoWindow = new google.maps.InfoWindow();
             createClickablePoly(rectangle, this.dataset.name, map);
         }
+        else if(this.dataset.type === 'polygon'){
+            let polygon = new google.maps.Polygon({
+                paths: JSON.parse(this.dataset.path),
+                strokeColor: '#055300',
+                strokeOpacity: 0.8,
+                strokeWeight: 3,
+                fillColor: '#0daa49',
+                fillOpacity: 0.35,
+                zIndex: 10,
+            });
+            polygon.setMap(map);
+            infoWindow = new google.maps.InfoWindow();
+            createClickablePoly(polygon, this.dataset.name, map);
+        }
     });
 }
 
 function createClickablePoly(poly, html, map) {
-    var contentString = html;
-    var infoWindow = new google.maps.InfoWindow();
+    let contentString = html;
+    let infoWindow = new google.maps.InfoWindow();
     google.maps.event.addListener(poly, 'click', function (event) {
         infoWindow.setContent(contentString);
         infoWindow.setPosition(event.latLng);
