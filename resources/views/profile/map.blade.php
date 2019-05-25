@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/map.css') }}">
 @endsection
 
 @section('content')
@@ -30,6 +30,21 @@
                 @endif
             @endforeach
         </ul>
+        @if(empty($fields))
+            <div class="sf-info">
+                <p class="sf-text-info">
+                    Vous n'avez aucun terrain sauvegardé !
+                </p>
+                <h3>Guide d'utilisation</h3>
+                <ul>
+                    <li>Sélectionner un outil</li>
+                    <li>Dessiner votre terrain</li>
+                    <li>Donnez-lui un nom</li>
+                    <li>Cliquez sur le terrain pour afficher son nom</li>
+                    <li>Cliquer sur l'icone <i class="fas fa-trash-alt"></i> dans la liste pour supprimer un terrain</li>
+                </ul>
+            </div>
+        @endif
     </div>
 @endsection
 

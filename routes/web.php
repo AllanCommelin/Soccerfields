@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/guide', function () {
+    return view('guide');
+});
+
 Auth::routes();
 Route::group( ['middleware' => 'auth' ], function() {
     Route::get('/map/fields', 'MapController@getFields');

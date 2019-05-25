@@ -62,6 +62,7 @@ function initMap() {
                     },
                     success: function (data) {
                         alert('Le terrain a bien été ajouté');
+                        window.location.reload();
                     }
                 });
             }
