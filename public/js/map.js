@@ -149,7 +149,7 @@ function initMap() {
                 strokeWeight: 3,
                 fillColor: '#0daa49',
                 fillOpacity: 0.35,
-                zIndex: 10,
+                zIndex: 11,
             });
             polygon.setMap(map);
             infoWindow = new google.maps.InfoWindow();
