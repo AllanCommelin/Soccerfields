@@ -1,0 +1,52 @@
+#map {
+    height: 55vh;
+    margin-top: 14%;
+}
+
+#map div.gmnoprint > div > div{
+    padding: .7rem 1rem!important;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(37, 11, 56);
+}
+
+.sf-info {
+    color: white;
+    margin: 1rem 2.2rem;
+}
+
+.sf-text-info {
+    text-align: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid white;
+}
+
+.list-group {
+    overflow: auto;
+    height: 38vh;
+}
+
+div.fields ul {
+    padding-left: 0;
+}
+
+.list-group-item {
+    padding: 1.75rem 1.25rem !important;
+    display: flex;
+    align-content: center;
+    color: rgb(37, 11, 56);
+    font-family: Poppins, Nunito, sans-serif;
+    font-weight: 500;
+}
+
+.list-group-item p {
+    margin: auto 0;
+}
+
+.deleteField {
+    margin-left: auto;
+}

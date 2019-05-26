@@ -1,0 +1,115 @@
+* {
+    font-family: Poppins, Nunito, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+header {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    background: url("/img/soccer-field.jpg") no-repeat;
+    background-position-x: right;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+
+    align-content: center;
+}
+
+.sf-content {
+    text-align: center;
+    color: white;
+    margin: auto;
+    padding-bottom: 15rem;
+}
+
+h1 {
+    font-weight: 800;
+    font-style: italic;
+    font-size: 3rem;
+}
+
+h2 {
+    font-weight: 300;
+}
+.sf-btn-container {
+    display: block;
+    position: absolute;
+    bottom: 8rem;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+.sf-main-button{
+    display: inline-block;
+    padding: .5rem 2rem;
+    border: 3px solid white;
+    color: white;
+    border-radius: 6rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    background-color: rgba(0, 0, 0, 0.24);
+}
+
+.sf-secondary-button {
+    display: inline-block;
+    padding: .5rem 2rem;
+    color: rgb(37, 11, 56);
+    border-radius: 6rem;
+    font-size: 1rem;
+    font-weight: 700;
+    background-color: white;
+}
+.sf-secondary-button.outline {
+    border: 3px solid rgb(37, 11, 56)!important;
+    background-color: transparent!important;
+    color: rgb(37, 11, 56);
+    font-size: .8rem;
+    font-weight: 600;
+}
+
+
+.sf-main-button.-white:visited, .sf-button-main.-white:hover,
+.sf-secondary-button.-white:visited, .sf-secondary-button.-white:hover {
+    color: white;
+    text-decoration: none;
+}
+.sf-main-button:visited, .sf-button-main-:hover,
+.sf-secondary-button:visited, .sf-secondary-button:hover {
+    color: rgb(37, 11, 56);
+    text-decoration: none;
+}
+
+.sf-main {
+    height: 100vh;
+    padding-top: 4rem;
+    padding-bottom: 1rem;
+    background-color: rgb(255, 255, 255);
+    color: rgb(37, 11, 56);
+}
+
+.sf-register {
+    text-align: center;
+    color: white;
+    background: rgb(37, 11, 56);
+    margin: 2rem 0;
+    padding: 2rem 0;
+}
+
+.sf-text {
+    font-size: 1rem;
+    padding: 1rem;
+    margin: 0 1.75rem;
+    background-color: white;
+    box-shadow: 1px 2px 1px white;
+    color: rgb(37, 11, 56);
+    border-radius: .5rem;
+}
+
+.sf-text span {
+    font-size: 1.2rem;
+    font-weight: 700;
+}

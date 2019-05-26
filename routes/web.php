@@ -15,10 +15,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-
-Route::get('/map', function () {
-    return view('map');
+Route::get('/guide', function () {
+    return view('guide');
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
+Auth::routes();
+Route::group( ['middleware' => 'auth' ], function() {
+    Route::get('/map/fields', 'MapController@getFields');
+
+    Route::post('/map/addField', 'MapController@createNewField');
+    Route::post('/map/deleteField', 'MapController@deleteField');
+
+    Route::get('/map', 'MapController@index')->name('map');
+});
