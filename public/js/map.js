@@ -30,7 +30,7 @@ function initMap() {
 
     /**
      * Permets de : 
-     * récupérer les attributs d'un rectangle lors de sa création
+     * récupérer les attributs d'un rectangle ou d'un polygone lors de sa création
      * donnée un nom à cette forme
      * l'enregistrer en base de donnée
      */
@@ -42,7 +42,7 @@ function initMap() {
             let boundSouth = bounds.getSouthWest().lat();
             let boundWest = bounds.getSouthWest().lng();
 
-            let fieldName = prompt("Veuillez entrer le nom du terrain");
+            let fieldName = prompt("Veuillez entrer le nom du terrain pour sauvegarder le terrain");
             if (fieldName != null) {
                 $.ajaxSetup({
                     headers: {
@@ -68,7 +68,7 @@ function initMap() {
             }
         } else if(event.type === 'polygon'){
             let pathArray = JSON.stringify(event.overlay.getPath().getArray());
-            let fieldName = prompt("Veuillez entrer le nom du terrain");
+            let fieldName = prompt("Veuillez entrer le nom du terrain pour sauvegarder le terrain");
             if (fieldName != null) {
                 $.ajaxSetup({
                     headers: {
@@ -93,7 +93,7 @@ function initMap() {
     });
 
     $('.deleteField').click(function(){
-        let idField = this.dataset.id
+        let idField = this.dataset.id;
         confirm = window.confirm("Êtes-vous sûr de vouloir supprimer ce terrain ?");
 
         if(confirm === true){

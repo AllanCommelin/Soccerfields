@@ -25,7 +25,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar fixed-top navbar-expand-md navbar-dark shadow-sm" style="background-color: rgb(37, 11, 56);">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -52,10 +52,10 @@
                             <a class="nav-link" href="{{ url('/') }}">Accueil </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/guide') }}">Guide d'utilisation</a>
+                            <a class="nav-link" href="{{ url('/map') }}">Carte des terrains</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/map') }}">Carte des terrains</a>
+                            <a class="nav-link" href="{{ url('/guide') }}">Guide d'utilisation</a>
                         </li>
                         @guest
                             <li class="nav-item">
@@ -67,26 +67,15 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" 
-                                    href="#" role="button" 
-                                    data-toggle="dropdown" 
-                                    aria-haspopup="true" 
-                                    aria-expanded="false" v-pre>
-                                    Profile <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('auth.logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
+                                    {{ __('auth.logout') }}
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
                             </li>
                         @endguest
                     </ul>

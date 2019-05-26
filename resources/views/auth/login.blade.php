@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/auth.css') }}" >
+@endsection
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -53,12 +55,12 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="sf-button-main">
                                     {{ __('auth.login') }}
                                 </button>
 
                                 @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                    <a class="btn btn-link float-right" href="{{ route('password.request') }}">
                                         {{ __('auth.forgot_your_password') }}
                                     </a>
                                 @endif

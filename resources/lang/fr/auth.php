@@ -21,4 +21,6 @@ return [
     'logout' => 'Deconnexion',
     'register' => 'S\'inscrire',
     'forgot_your_password' => 'Mot de passe oublié ?',
+    'reset_password' => 'Réinitialisé votre mot de passe',
+    'verify_your_email_address' => 'Confirmer votre adresse email',
 ];

@@ -27,6 +27,4 @@ Route::group( ['middleware' => 'auth' ], function() {
     Route::post('/map/deleteField', 'MapController@deleteField');
 
     Route::get('/map', 'MapController@index')->name('map');
-
-    Route::get('/home', 'HomeController@index')->name('home');
 });

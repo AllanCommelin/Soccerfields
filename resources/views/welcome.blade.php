@@ -15,7 +15,7 @@
     <div id="discover" class="sf-main">
         <div class="sf-text text-center mb-3">
             <p>
-                <span>SoccerFields</span> vous permet de créer des plan de stade. Plus précisément de définir les terrains
+                <span>SoccerFields</span> permet de créer des plans de stade. Plus précisément de définir les terrains
                 de football disponibles et de les nommer.
             </p>
         </div>
